@@ -1,6 +1,5 @@
 package com.example.tipcalculator
 
-import androidx.compose.foundation.MutatePriority
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
@@ -24,8 +22,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,7 +44,6 @@ fun Button(
         modifier = Modifier
             .clip(CircleShape)
             .background(Color.Cyan)
-            .aspectRatio(1f)
             .clickable { onClick() }
             .border(4.dp, Color.Black)
             .then(modifier),
@@ -64,7 +59,7 @@ fun Button(
 
 @Composable
 fun Header(
-    amount: String = "TestText",
+    amount: String,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -101,10 +96,10 @@ fun EnterBillField(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(4.dp)
+        modifier = Modifier.padding(top = 20.dp)
     ) {
         OutlinedTextField(
-            value = amount.toString(),
+            value = amount,
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
@@ -134,9 +129,8 @@ fun EnterBillField(
 @Composable
 fun SplitRow(number: Int, onClickPlus: () -> Unit, onClickMinus: () -> Unit) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(top = 40.dp),
         verticalAlignment = Alignment.CenterVertically,
-//        horizontalArrangement = Arrangement.Center
     ) {
         Text(
             text = "Split",
@@ -164,6 +158,38 @@ fun SplitRow(number: Int, onClickPlus: () -> Unit, onClickMinus: () -> Unit) {
     }
 }
 
+@Composable
+fun TipRow(number: Int, onClickPlus: () -> Unit, onClickMinus: () -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(top = 40.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = "Tip",
+            fontSize = 30.sp,
+            modifier = Modifier.weight(3f)
+        )
+        Button(
+            symbol = "-",
+            modifier = Modifier.weight(1f)
+        ) {
+            onClickMinus()
+        }
+        Text(
+            text = number.toString(),
+            fontSize = 30.sp,
+            modifier = Modifier.weight(1f)
+        )
+        Button(
+            symbol = "+",
+            modifier = Modifier.weight(1f)
+        ) {
+            onClickPlus()
+        }
+    }
+
+}
+
 
 @Preview(showBackground = true)
 @Composable
@@ -175,18 +201,25 @@ fun buttonPreview() {
 @Preview(showBackground = false)
 @Composable
 fun ResultCardPreview() {
-    Header()
+    Header("123.5")
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun EnterBillFieldPreview() {
-//    EnterBillField()
-//}
+@Preview(showBackground = true)
+@Composable
+fun EnterBillFieldPreview() {
+    EnterBillField(amount = "1233", onClick = {}, onValueChange = {})
+}
 
 @Preview(showBackground = true)
 @Composable
 fun SplitRowPreview(
 ) {
     SplitRow(2, onClickPlus = {}, onClickMinus = {})
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TipRowPreview(
+) {
+    TipRow(number = 5, onClickPlus = {}, onClickMinus = {})
 }

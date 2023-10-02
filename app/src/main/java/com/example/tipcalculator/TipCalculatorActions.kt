@@ -7,8 +7,8 @@ sealed class TipCalculatorActions {
     object TipPlusButtonPress : TipCalculatorActions()
     object TipMinusButtonPress : TipCalculatorActions()
     object Clear : TipCalculatorActions()
-//    object Input : TipCalculatorActions()
-    data class Input (val number: String): TipCalculatorActions()
+    data class Input(val number: String) : TipCalculatorActions()
+    object Calculate : TipCalculatorActions()
 
 }
 
