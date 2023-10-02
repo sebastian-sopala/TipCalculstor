@@ -24,12 +24,11 @@ class TipCalculatorViewModel : ViewModel() {
     }
 
     private fun calculate() {
-        val amount = state.billAmount.toInt()
+        val amount = state.billAmount.toFloat()
         val split = state.splitBy
         val tip = state.tipPercentage
-        val tipValue = amount * (tip/100)
-        val totalPerPerson = ((amount+tipValue)/split).toString()
-
+        val tipValue = (amount * tip)/100
+        val totalPerPerson = ((amount + tipValue) / split).toString()
         state = state.copy(totalPerPerson = totalPerPerson)
     }
 
