@@ -61,51 +61,11 @@ fun TheApp(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Header()
-        EnterBillField(amount = state.billAmount, onClick = { viewModel.onAction(TipCalculatorActions.Clear) }) {
+        EnterBillField(
+            amount = state.billAmount,
+            onClick = { viewModel.onAction(TipCalculatorActions.Clear) }) {
             viewModel.onAction(TipCalculatorActions.Input(it))
         }
-
-
-    }
-
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun EnterBillField(
-    amount: String,
-    onClick: () -> Unit,
-    onValueChange: (String) -> Unit,
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(4.dp)
-    ) {
-        OutlinedTextField(
-            value = amount.toString(),
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions.Default,
-            label = { Text(text = "The Amount") },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Rounded.AttachMoney,
-                    contentDescription = "icon"
-                )
-            },
-            onValueChange = { onValueChange(it) },
-        )
-        Icon(
-            imageVector = Icons.Rounded.Clear,
-            contentDescription = "icon",
-            modifier = Modifier
-                .clickable { onClick() }
-                .padding(8.dp)
-        )
-
     }
 }
 
